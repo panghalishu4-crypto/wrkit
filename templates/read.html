@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Reading Chapter {{ chapter.chapter_number }} - {{ novel.title }}{% endblock %}
+{% block content %}
+<div class="read-card animate-card">
+    <a href="/novel/{{ novel.id }}" style="text-decoration:none; color:#ff6b6b; font-weight:bold;">← Back to Novel Details</a>
+    <h2>{{ novel.title }}</h2>
+    <h3>Chapter {{ chapter.chapter_number }}: {{ chapter.title }}</h3>
+    <span class="badge {{ 'complete' if novel.status=='Complete' else 'ongoing' }}">{{ novel.status }}</span>
+    
+    <div style="margin: 30px 0; line-height: 1.8; font-size: 18px; white-space: pre-wrap;">
+        {{ chapter.content }}
+    </div>
+
+    <div class="ad-banner">📢 Sponsored Ad</div>
+
+    <div style="display: flex; gap: 15px; margin: 30px 0;">
+        <form method="POST" action="/novel/{{ novel.id }}/like"><button class="chip" type="submit">❤️ Like</button></form>
+        <form method="POST" action="/novel/{{ novel.id }}/save"><button class="chip" type="submit">💾 Save</button></form>
+    </div>
+
+    {% if next_chapter %}
+    <a href="/read/{{ next_chapter.id }}" class="btn-gradient" style="display:block; text-align:center; text-decoration:none; padding:15px; font-size:16px;">Next Chapter →</a>
+    {% else %}
+    <p style="text-align:center; font-weight:bold; color:#2ed573;">You have reached the latest chapter!</p>
+    {% endif %}
+
+    <!-- Suggestive Novel Box -->
+    {% if similar_novels %}
+    <div style="margin-top: 40px; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+        <h4>You might also like:</h4>
+        <div style="display: flex; gap: 15px;">
+            {% for sim in similar_novels %}
+            <div style="background: white; padding: 10px; border-radius: 8px; flex: 1; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <h5><a href="/novel/{{ sim.id }}" style="color:#333; text-decoration:none;">{{ sim.title }}</a></h5>
+                <p style="font-size: 12px; color:#666;">By {{ sim.writer }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Wrkit{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <h2>Wrkit 📚</h2>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/search">Search</a>
+            <a href="/write">Write</a>
+            <a href="/library">Library</a>
+            <a href="/profile">Profile</a>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

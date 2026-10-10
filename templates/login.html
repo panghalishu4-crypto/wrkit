@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Wrkit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="login-body">
+    <div class="auth-container">
+        <h1 class="logo-text">Wrkit 📚</h1>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <p style="color: red; font-size: 13px;">{{ messages[0] }}</p>
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Username" required class="input-box">
+            <input type="password" name="password" placeholder="Password" required class="input-box">
+            <button type="submit" class="btn-gradient">Login</button>
+        </form>
+        <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
+        <p style="font-size: 14px;">New user? Register here:</p>
+        <form method="POST" action="/signup">
+            <input type="text" name="username" placeholder="Username" required class="input-box">
+            <input type="email" name="email" placeholder="Email Address" required class="input-box">
+            <input type="password" name="password" placeholder="Password" required class="input-box">
+            <button type="submit" class="btn-gradient-alt">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>

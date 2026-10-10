@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Search - Wrkit{% endblock %}
+{% block content %}
+<h2>🔍 Discover Novels</h2>
+<form method="GET" action="/search">
+    <input type="text" name="q" placeholder="Search by title, hashtag, or keyword..." value="{{ query }}" class="input-box">
+    <button type="submit" class="btn-gradient">Search</button>
+</form>
+
+<h4 style="margin-top: 20px;">Genres</h4>
+<div class="genre-chips">
+    <a href="/search?genre=action" class="chip">Action</a>
+    <a href="/search?genre=comedy" class="chip">Comedy</a>
+    <a href="/search?genre=fantasy" class="chip">Fantasy</a>
+    <a href="/search?genre=horror" class="chip">Horror</a>
+    <a href="/search?genre=sifi" class="chip">Sci-Fi</a>
+    <a href="/search?genre=thrilling" class="chip">Thrilling</a>
+    <a href="/search?genre=romance" class="chip">Romance</a>
+    <a href="/search?genre=erotic" class="chip">Erotic</a>
+</div>
+
+<h4 style="margin-top: 15px;">Popular Hashtags</h4>
+<div class="hashtag-chips">
+    <a href="/search?hashtag=mafia" class="chip">#mafia</a>
+    <a href="/search?hashtag=arranged marriage" class="chip">#arranged_marriage</a>
+    <a href="/search?hashtag=ceo" class="chip">#ceo</a>
+    <a href="/search?hashtag=enemy to lovers" class="chip">#enemy_to_lovers</a>
+    <a href="/search?hashtag=stepbrother" class="chip">#stepbrother</a>
+    <a href="/search?hashtag=vampire" class="chip">#vampire</a>
+</div>
+
+<div class="novel-grid" style="margin-top: 20px;">
+    {% for novel in novels %}
+    <div class="novel-card animate-card">
+        <h3><a href="/novel/{{ novel.id }}" style="color:#2f3640; text-decoration:none;">{{ novel.title }}</a></h3>
+        <p style="color:#718093; font-size:14px;">By: {{ novel.writer }}</p>
+        <span class="badge {{ 'complete' if novel.status=='Complete' else 'ongoing' }}">{{ novel.status }}</span>
+    </div>
+    {% else %}
+    <p style="margin-top: 20px;">No matching novels found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

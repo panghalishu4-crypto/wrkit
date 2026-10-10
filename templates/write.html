@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Writer Studio - Wrkit{% endblock %}
+{% block content %}
+<div class="form-card animate-card">
+    <h2>✍️ Writer Studio</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p style="color: green; font-weight: bold;">{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="/write">
+        <input type="text" name="title" placeholder="Novel Name (Exact name to continue or create new)" required class="input-box">
+        <input type="text" name="writer" placeholder="Writer Name (Compulsory)" required class="input-box">
+        <input type="text" name="genre" placeholder="Genre (e.g. Romance, Fantasy)" required class="input-box">
+        <input type="text" name="hashtag" placeholder="Hashtags (e.g. mafia, ceo)" required class="input-box">
+        <textarea name="description" placeholder="Novel Short Description..." required class="input-box" style="height: 80px;"></textarea>
+        
+        <input type="text" name="chapter_title" placeholder="Chapter Name (Optional - leaves default Chapter X if empty)" class="input-box">
+        
+        <textarea name="content" placeholder="Write your chapter content here..." required class="input-box" style="height: 200px;"></textarea>
+        
+        <div style="margin: 15px 0;">
+            <label style="font-weight: bold;">Novel Status (Compulsory):</label><br>
+            <input type="radio" id="continue" name="status" value="On Going" checked>
+            <label for="continue">Continue (Novel is On Going)</label><br>
+            <input type="radio" id="complete" name="status" value="Complete">
+            <label for="complete">Complete (Novel is Complete)</label>
+        </div>
+
+        <button type="submit" class="btn-gradient">Publish Chapter</button>
+    </form>
+</div>
+{% endblock %}

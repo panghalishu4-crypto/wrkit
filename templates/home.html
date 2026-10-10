@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Home - Wrkit{% endblock %}
+{% block content %}
+<div class="filter-tabs">
+    <a href="/?filter=trending" class="chip {% if active_filter=='trending' %}active-chip{% endif %}">🔥 Trending</a>
+    <a href="/?filter=new" class="chip {% if active_filter=='new' %}active-chip{% endif %}">✨ New</a>
+    <a href="/?filter=latest" class="chip {% if active_filter=='latest' %}active-chip{% endif %}">⚡ Latest</a>
+    <a href="/?filter=warewolf" class="chip {% if active_filter=='warewolf' %}active-chip{% endif %}">🐺 Warewolf</a>
+    <a href="/?filter=vampire" class="chip {% if active_filter=='vampire' %}active-chip{% endif %}">🧛 Vampire</a>
+    <a href="/?filter=mafia" class="chip {% if active_filter=='mafia' %}active-chip{% endif %}">💼 Mafia</a>
+</div>
+
+<div class="ad-banner">📢 Sponsored Ad: Discover endless stories on Wrkit!</div>
+
+<div class="novel-grid">
+    {% for novel in novels %}
+    <div class="novel-card animate-card">
+        <h3><a href="/novel/{{ novel.id }}" style="color:#2f3640; text-decoration:none;">{{ novel.title }}</a></h3>
+        <p style="color:#718093; font-size:14px;">By: {{ novel.writer }}</p>
+        <span class="badge {{ 'complete' if novel.status=='Complete' else 'ongoing' }}">{{ novel.status }}</span>
+        <div class="stats">
+            <span>👁️ {{ novel.views }}</span>
+            <span>❤️ {{ novel.likes }}</span>
+            <span>💾 {{ novel.saves }}</span>
+        </div>
+    </div>
+    {% else %}
+    <p>No novels found in this category yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

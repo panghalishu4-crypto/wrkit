@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}My Library - Wrkit{% endblock %}
+{% block content %}
+<div class="filter-tabs">
+    <a href="/library?tab=reading" class="chip {% if active_tab=='reading' %}active-chip{% endif %}">📖 Reading</a>
+    <a href="/library?tab=liked" class="chip {% if active_tab=='liked' %}active-chip{% endif %}">❤️ Liked</a>
+    <a href="/library?tab=saved" class="chip {% if active_tab=='saved' %}active-chip{% endif %}">💾 Saved</a>
+</div>
+
+<div class="novel-grid">
+    {% for item in items %}
+    {% set novel = item.novel %}
+    <div class="novel-card animate-card">
+        <h3><a href="/novel/{{ item.novel_id }}" style="color:#2f3640; text-decoration:none;">Novel ID: {{ item.novel_id }}</a></h3>
+        <a href="/library/delete/{{ item.id }}" style="color: red; font-size: 13px; text-decoration:none;">🗑️ Remove from Library</a>
+    </div>
+    {% else %}
+    <p style="margin-top: 20px;">No novels in this section yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

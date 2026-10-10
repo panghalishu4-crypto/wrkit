@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ novel.title }} - Wrkit{% endblock %}
+{% block content %}
+<div class="detail-card animate-card">
+    <h1>{{ novel.title }}</h1>
+    <p><strong>Author:</strong> {{ novel.writer }} | <strong>Genre:</strong> {{ novel.genre }}</p>
+    <p><strong>Hashtags:</strong> {{ novel.hashtag }}</p>
+    <span class="badge {{ 'complete' if novel.status=='Complete' else 'ongoing' }}">{{ novel.status }}</span>
+    
+    <p style="margin-top: 20px; line-height: 1.6;">{{ novel.description }}</p>
+    
+    <div style="display: flex; gap: 10px; margin: 20px 0;">
+        <form method="POST" action="/novel/{{ novel.id }}/like"><button class="chip" type="submit">❤️ Like ({{ novel.likes }})</button></form>
+        <form method="POST" action="/novel/{{ novel.id }}/save"><button class="chip" type="submit">💾 Save ({{ novel.saves }})</button></form>
+        <span>👁️ Views: {{ novel.views }}</span>
+    </div>
+
+    {% if chapters %}
+    <a href="/read/{{ chapters[0].id }}" class="btn-gradient" style="display:inline-block; text-align:center; text-decoration:none; padding:12px 30px; margin-bottom:20px;">Start Reading Chapter 1</a>
+    {% endif %}
+
+    <h3>Chapters ({{ chapters|length }})</h3>
+    <ul class="chapters-list">
+        {% for ch in chapters %}
+        <li><a href="/read/{{ ch.id }}">Chapter {{ ch.chapter_number }}: {{ ch.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div class="ad-banner">📢 Ad Break</div>
+
+    <h3>Readers Comments</h3>
+    <form method="POST" action="/novel/{{ novel.id }}/comment">
+        <input type="text" name="comment_text" placeholder="Write a comment..." required class="input-box">
+        <button type="submit" class="btn-gradient" style="width: auto; padding: 8px 20px;">Post Comment</button>
+    </form>
+    <div style="margin-top: 15px;">
+        {% for c in comments %}
+        <p style="background: #f1f2f6; padding: 10px; border-radius: 8px; font-size: 14px;"><strong>{{ c.username }}:</strong> {{ c.text }}</p>
+        {% else %}
+        <p style="color: #718093; font-size: 14px;">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
